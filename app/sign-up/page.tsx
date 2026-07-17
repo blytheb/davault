@@ -57,7 +57,7 @@ export default function Signup() {
 				return;
 			}
 
-			router.push("/setup");
+			router.push("/dashboard");
 		} catch {
 			setError("Something went wrong. Please try again.");
 		} finally {
