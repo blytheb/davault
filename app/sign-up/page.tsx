@@ -10,7 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export default function Login() {
+export default function Signup() {
 	return (
 		<div className="flex items-center justify-center w-full ">
 			<Card
@@ -25,14 +25,16 @@ export default function Login() {
 				sm:shadow-sm
 				sm:max-w-sm">
 				<CardHeader>
-					<CardTitle>Welcome Back!</CardTitle>
-					<CardDescription>
-						Enter your email below to login to your account
-					</CardDescription>
+					<CardTitle>Create an account</CardTitle>
+					<CardDescription>Fill out this form to get started</CardDescription>
 				</CardHeader>
 				<CardContent>
 					<form>
 						<div className="flex flex-col gap-6">
+							<div className="grid gap-2">
+								<Label htmlFor="email">Name</Label>
+								<Input id="text" type="text" placeholder="John Doe" required />
+							</div>
 							<div className="grid gap-2">
 								<Label htmlFor="email">Email</Label>
 								<Input
