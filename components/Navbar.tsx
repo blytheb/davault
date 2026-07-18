@@ -10,7 +10,7 @@ export default function Navbar() {
 	return (
 		<nav className="flex justify-between items-center border-b border-gray-400">
 			{session ? (
-				<div>
+				<>
 					<div className="space-x-5">
 						<Link href={"/"}>Landing</Link>
 						<Link href={"/dashboard"}>Dashboard</Link>
@@ -20,7 +20,7 @@ export default function Navbar() {
 					<div className="space-x-5">
 						<LogoutButton />
 					</div>
-				</div>
+				</>
 			) : (
 				<>
 					<div className="space-x-5">
