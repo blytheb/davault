@@ -3,38 +3,36 @@
 import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import LogoutButton from "./LogoutButton";
+import { Button } from "./ui/button";
 
 export default function Navbar() {
 	const { data: session } = authClient.useSession();
 
 	return (
-		<nav className="flex justify-between items-center border-b border-gray-400">
-			{session ? (
-				<>
-					<div className="space-x-5">
-						<Link href={"/"}>Landing</Link>
-						<Link href={"/dashboard"}>Dashboard</Link>
-						<Link href={"/vaults"}>Vaults</Link>
-						<Link href={"/trasnactions"}>Transactions</Link>
-					</div>
-					<div className="space-x-5">
+		<nav className="border-b border-gray-400">
+			<div className="flex items-center justify-between p-4">
+				<Link href={"/"} className="font-bold text-xl">
+					DaVault
+				</Link>
+				{/* desktop */}
+				<div className="hidden md:flex items-center gap-3">
+					<Link href={"/vaults"}>Vaults</Link>
+					<Link href={"/transactions"}>Transactions</Link>
+					{session ? (
 						<LogoutButton />
-					</div>
-				</>
-			) : (
-				<>
-					<div className="space-x-5">
-						<Link href={"/"}>Landing</Link>
-						<Link href={"/dashboard"}>Dashboard</Link>
-						<Link href={"/vaults"}>Vaults</Link>
-						<Link href={"/trasnactions"}>Transactions</Link>
-					</div>
-					<div className="space-x-5">
-						<Link href={"/sign-up"}>Sign Up</Link>
-						<Link href={"/login"}>Log In</Link>
-					</div>
-				</>
-			)}
+					) : (
+						<>
+							<Link href={"/sign-up"}>
+								<Button variant={"outline"}>signup</Button>
+							</Link>
+							<Link href={"/login"}>
+								<Button>log in</Button>
+							</Link>
+						</>
+					)}
+				</div>
+				{/* mobile */}
+			</div>
 		</nav>
 	);
 }
