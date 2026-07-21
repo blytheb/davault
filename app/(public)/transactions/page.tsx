@@ -1,5 +1,11 @@
+import { TransactionForm } from "@/components/modals/TransactionForm";
+import { Button } from "@/components/ui/button";
 import React from "react";
 
 export default function Transactions() {
-	return <div>TransactionPage</div>;
+	return (
+		<div>
+			<TransactionForm />
+		</div>
+	);
 }
