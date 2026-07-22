@@ -9,7 +9,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  // url      = env("DATABASE_URL")
 }
 
 model Test {
@@ -28,6 +28,7 @@ model User {
   updatedAt     DateTime  @updatedAt
   sessions      Session[]
   accounts      Account[]
+  transactions  Transaction[]
 
   @@unique([email])
   @@map("user")
@@ -79,4 +80,27 @@ model Verification {
 
   @@index([identifier])
   @@map("verification")
+}
+
+model Transaction {
+  id        String   @id @default(cuid())
+
+  userId    String
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  type      TransactionType
+  name      String
+  category  String
+  amount    Float
+  date      DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+}
+
+
+enum TransactionType {
+  income
+  expense
 }
