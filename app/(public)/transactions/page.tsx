@@ -1,25 +1,18 @@
-import { TransactionForm } from "@/components/modals/TransactionForm";
-import { Button } from "@/components/ui/button";
-import React from "react";
-import {
-	Table,
-	TableBody,
-	TableCaption,
-	TableCell,
-	TableFooter,
-	TableHead,
-	TableHeader,
-	TableRow,
-} from "@/components/ui/table";
+"use client";
 
-const transactions = [
+import { TransactionForm } from "@/components/modals/TransactionForm";
+import React, { useState } from "react";
+import TransactionTable from "@/components/tables/TransactionTable";
+import TransactionPagination from "@/components/tables/TransactionPagination";
+
+const transactions_list = [
 	{
 		id: 1,
 		date: "01-15-2026",
 		type: "income",
 		name: "Mid January paycheck",
 		category: "salary",
-		amount: 1500.0,
+		amount: 1500,
 	},
 	{
 		id: 2,
@@ -35,7 +28,7 @@ const transactions = [
 		type: "expense",
 		name: "walmart",
 		category: "Groceries",
-		amount: 200.0,
+		amount: 200.5,
 	},
 	{
 		id: 4,
@@ -61,56 +54,109 @@ const transactions = [
 		category: "salary",
 		amount: 1500.0,
 	},
+	{
+		id: 7,
+		date: "01-15-2026",
+		type: "income",
+		name: "Mid January paycheck",
+		category: "salary",
+		amount: 1500.0,
+	},
+	{
+		id: 8,
+		date: "01-15-2026",
+		type: "income",
+		name: "Mid January paycheck",
+		category: "salary",
+		amount: 1500.0,
+	},
+	{
+		id: 9,
+		date: "01-15-2026",
+		type: "income",
+		name: "Mid January paycheck",
+		category: "salary",
+		amount: 1500.0,
+	},
+	{
+		id: 10,
+		date: "01-15-2026",
+		type: "income",
+		name: "Mid January paycheck",
+		category: "salary",
+		amount: 1500.0,
+	},
+	{
+		id: 11,
+		date: "01-15-2026",
+		type: "income",
+		name: "Mid January paycheck",
+		category: "salary",
+		amount: 1500.0,
+	},
+	{
+		id: 12,
+		date: "01-15-2026",
+		type: "income",
+		name: "Mid January paycheck",
+		category: "salary",
+		amount: 1500.0,
+	},
+	{
+		id: 13,
+		date: "01-15-2026",
+		type: "income",
+		name: "Mid January paycheck",
+		category: "salary",
+		amount: 1500.0,
+	},
+	{
+		id: 14,
+		date: "01-15-2026",
+		type: "income",
+		name: "Mid January paycheck",
+		category: "salary",
+		amount: 1500.0,
+	},
 ];
 
 export default function Transactions() {
+	const [transactions, setTransactions] = useState(transactions_list);
+	const [currentPage, setCurrentPage] = useState(1);
+	const [rowsPerPage, setRowsPerPage] = useState(3);
+
+	const totalPages = Math.ceil(transactions.length / rowsPerPage);
+
+	const startIndex = (currentPage - 1) * rowsPerPage;
+	const displayedTransactions = transactions.slice(
+		startIndex,
+		startIndex + rowsPerPage,
+	);
+
+	function handleEdit(id: number) {
+		console.log("Edit", id);
+	}
+	function handleDelete(id: number) {
+		console.log("Delete", id);
+	}
 	return (
 		<>
 			<div>
+				{/* <SearchFilter /> */}
 				<TransactionForm />
+				<TransactionTable
+					transactions={displayedTransactions}
+					onEdit={handleEdit}
+					onDelete={handleDelete}
+				/>
 			</div>
-			<div className="p-10 flex justify-center items-center">
-				<Table className="max-w-4xl">
-					<TableCaption>A list of your recent invoices.</TableCaption>
-					<TableHeader>
-						<TableRow>
-							<TableHead className="w-25">Date</TableHead>
-							<TableHead>Name</TableHead>
-							<TableHead className="hidden sm:table-cell">Type</TableHead>
-
-							<TableHead className="hidden sm:table-cell">Category</TableHead>
-							<TableHead className="text-right">Amount</TableHead>
-						</TableRow>
-					</TableHeader>
-					<TableBody>
-						{transactions.map((transaction) => (
-							<TableRow key={transaction.id}>
-								<TableCell className="font-medium">
-									{transaction.date}
-								</TableCell>
-								<TableCell>{transaction.name}</TableCell>
-								<TableCell className="hidden sm:table-cell">
-									{transaction.type}
-								</TableCell>
-								<TableCell className="hidden sm:table-cell">
-									{transaction.category}
-								</TableCell>
-								<TableCell className="text-right">
-									{transaction.amount}
-								</TableCell>
-							</TableRow>
-						))}
-					</TableBody>
-					<TableFooter>
-						<TableRow>
-							<TableCell colSpan={3}>Total</TableCell>
-							<TableCell className="text-right hidden sm:table-cell">
-								$2,500.00
-							</TableCell>
-						</TableRow>
-					</TableFooter>
-				</Table>
-			</div>
+			<TransactionPagination
+				currentPage={currentPage}
+				totalPages={totalPages}
+				rowsPerPage={rowsPerPage}
+				setCurrentPage={setCurrentPage}
+				setRowsPerPage={setRowsPerPage}
+			/>
 		</>
 	);
 }
