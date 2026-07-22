@@ -16,21 +16,21 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { MoreHorizontalIcon, Search } from "lucide-react";
+import { MoreHorizontalIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { Transaction } from "@/app/types/transaction";
 
-type TransactionTableProps = {
+type TableProps = {
 	transactions: Transaction[];
-	onEdit?: (transaction: Transaction) => void;
-	onDelete?: (transaction: Transaction) => void;
+	openEdit: (transaction: Transaction) => void;
+	onDelete: (transaction: Transaction) => void;
 };
 
 export default function TransactionTable({
 	transactions,
-	onEdit,
+	openEdit,
 	onDelete,
-}: TransactionTableProps) {
+}: TableProps) {
 	return (
 		<Table className="max-w-4xl">
 			<TableHeader>
@@ -71,14 +71,14 @@ export default function TransactionTable({
 									}
 								/>
 								<DropdownMenuContent align="end">
-									<DropdownMenuItem onClick={() => onEdit?.(transaction)}>
+									<DropdownMenuItem onClick={() => openEdit(transaction)}>
 										Edit
 									</DropdownMenuItem>
 									<DropdownMenuItem>Duplicate</DropdownMenuItem>
 									<DropdownMenuSeparator />
 									<DropdownMenuItem
 										variant="destructive"
-										onClick={() => onDelete?.(transaction)}>
+										onClick={() => onDelete(transaction)}>
 										Delete
 									</DropdownMenuItem>
 								</DropdownMenuContent>

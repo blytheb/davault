@@ -29,11 +29,34 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import { CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
+import { Transaction } from "@/app/types/transaction";
 
-export function TransactionForm() {
-	const [open, setOpen] = useState(false);
-	const [date, setDate] = useState<Date | undefined>(new Date());
+type FormProps = {
+	openForm: boolean;
+	setOpenForm: (open: boolean) => void;
+	transaction: Transaction | null;
+	onSave: (transaction: Transaction) => void;
+};
 
+export function TransactionForm({
+	openForm,
+	setOpenForm,
+	transaction,
+	onSave,
+}: FormProps) {
+	const [date, setDate] = useState<Date | undefined>(
+		transaction ? new Date(transaction.date) : new Date(),
+	);
+	const new_transaction: Transaction = {
+		id: 100,
+		date: new Date(),
+		type: "income",
+		name: "Mid January paycheck",
+		category: "salary",
+		amount: 1500,
+	};
+
+	const isEditing = !!transaction;
 	const items = [
 		{ label: "Salary", value: "salary" },
 		{ label: "Side Hustle", value: "side-hustle" },
@@ -45,11 +68,15 @@ export function TransactionForm() {
 
 	return (
 		<>
-			<Dialog disablePointerDismissal open={open} onOpenChange={setOpen}>
-				<DialogTrigger render={<Button variant="outline">+Add</Button>} />
+			<Dialog
+				disablePointerDismissal
+				open={openForm}
+				onOpenChange={setOpenForm}>
 				<DialogContent className="sm:max-w-sm">
 					<DialogHeader>
-						<DialogTitle>Add a New Transaction</DialogTitle>
+						<DialogTitle>
+							{isEditing ? "Edit Transaction" : "Add a New Transaction"}
+						</DialogTitle>
 						<DialogDescription>
 							Keep track of all your transactions.
 						</DialogDescription>
@@ -114,8 +141,9 @@ export function TransactionForm() {
 						<DialogClose render={<Button variant="outline">Cancel</Button>} />
 						<Button
 							onClick={() => {
-								// save transaction
-								setOpen(false);
+								{
+									isEditing ? console.log("editing") : onSave(new_transaction);
+								}
 							}}>
 							Save changes
 						</Button>
