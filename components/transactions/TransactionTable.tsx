@@ -18,20 +18,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { MoreHorizontalIcon, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-type Transaction = {
-	id: number;
-	date: string;
-	type: "income" | "expense";
-	name: string;
-	category: string;
-	amount: number;
-};
+import type { Transaction } from "@/app/types/transaction";
 
 type TransactionTableProps = {
 	transactions: Transaction[];
-	onEdit?: (id: number) => void;
-	onDelete?: (id: number) => void;
+	onEdit?: (transaction: Transaction) => void;
+	onDelete?: (transaction: Transaction) => void;
 };
 
 export default function TransactionTable({
@@ -79,14 +71,14 @@ export default function TransactionTable({
 									}
 								/>
 								<DropdownMenuContent align="end">
-									<DropdownMenuItem onClick={() => onEdit?.(transaction.id)}>
+									<DropdownMenuItem onClick={() => onEdit?.(transaction)}>
 										Edit
 									</DropdownMenuItem>
 									<DropdownMenuItem>Duplicate</DropdownMenuItem>
 									<DropdownMenuSeparator />
 									<DropdownMenuItem
 										variant="destructive"
-										onClick={() => onDelete?.(transaction.id)}>
+										onClick={() => onDelete?.(transaction)}>
 										Delete
 									</DropdownMenuItem>
 								</DropdownMenuContent>

@@ -1,11 +1,12 @@
 "use client";
 
-import { TransactionForm } from "@/components/modals/TransactionForm";
+import { TransactionForm } from "@/components/transactions/TransactionForm";
 import React, { useState } from "react";
-import TransactionTable from "@/components/tables/TransactionTable";
-import TransactionPagination from "@/components/tables/TransactionPagination";
+import TransactionTable from "@/components/transactions/TransactionTable";
+import TransactionPagination from "@/components/transactions/TransactionPagination";
+import type { Transaction } from "@/app/types/transaction";
 
-const transactions_list = [
+const transactions_list: Transaction[] = [
 	{
 		id: 1,
 		date: "01-15-2026",
@@ -133,8 +134,8 @@ export default function Transactions() {
 		startIndex + rowsPerPage,
 	);
 
-	function handleEdit(id: number) {
-		console.log("Edit", id);
+	function handleEdit(transaction: Transaction) {
+		console.log("Editing", transaction);
 	}
 	function handleDelete(id: number) {
 		console.log("Delete", id);
