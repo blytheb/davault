@@ -70,7 +70,7 @@ export function TransactionForm() {
 						<Field>
 							<Select items={items}>
 								<SelectTrigger className="w-45">
-									<SelectValue placeholder="Category" />
+									<SelectValue placeholder="Select a category" />
 								</SelectTrigger>
 								<SelectContent>
 									<SelectGroup>
@@ -85,7 +85,7 @@ export function TransactionForm() {
 						</Field>
 						<Field>
 							<Label htmlFor="name">Name</Label>
-							<Input id="name" name="name" placeholder="Pedro Duarte" />
+							<Input id="name" name="name" placeholder="ex.Monthly Rent" />
 						</Field>
 						<Field>
 							<Label htmlFor="amount">Amount</Label>
