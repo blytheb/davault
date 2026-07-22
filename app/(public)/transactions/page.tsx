@@ -137,8 +137,9 @@ export default function Transactions() {
 	function handleEdit(transaction: Transaction) {
 		console.log("Editing", transaction);
 	}
-	function handleDelete(id: number) {
-		console.log("Delete", id);
+	function handleDelete(transaction: Transaction) {
+		console.log("Delete", transaction);
+		setTransactions((prev) => prev.filter((t) => t.id != transaction.id));
 	}
 	return (
 		<>
